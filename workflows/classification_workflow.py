@@ -14,4 +14,16 @@ from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
 
 
-
+DATASET_COLUMNS = OrderedDict(
+    {
+        "#preg": int,
+        "pgc_2h": int,
+        "diastolic_bp": int,
+        "tricep_skin_fold_mm": int,
+        "serum_insulin_2h": int,
+        "bmi": float,
+        "diabetes_pedigree": float,
+        "age": int,
+        "class": int,
+    }
+)
