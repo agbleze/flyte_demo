@@ -27,3 +27,9 @@ DATASET_COLUMNS = OrderedDict(
         "class": int,
     }
 )
+
+
+FEATURE_COLUMNS = OrderedDict({k: v for k, v in DATASET_COLUMNS.items() if k != "class"})
+
+CLASSES_COLUMNS = OrderedDict({"class": int})
+
