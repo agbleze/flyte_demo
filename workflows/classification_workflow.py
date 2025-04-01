@@ -33,3 +33,12 @@ FEATURE_COLUMNS = OrderedDict({k: v for k, v in DATASET_COLUMNS.items() if k != 
 
 CLASSES_COLUMNS = OrderedDict({"class": int})
 
+
+@task(cache_version="1.0", cache=True, limits=Resources(mem="200Mi"))
+def split_traintest_dataset(dataset: FlyteFile[typing.TypeVar("csv")], seed: int,
+                            test_split_ratio: float
+                            ) -> Tuple[FlyteSchema[FEATURE_COLUMNS],
+                                    FlyteSchema[FEATURE_COLUMNS],
+                                    FlyteSchema[CLASSES_COLUMNS],
+                                    FlyteSchema[CLASSES_COLUMNS]]:
+    
