@@ -43,4 +43,4 @@ def split_traintest_dataset(dataset: FlyteFile[typing.TypeVar("csv")], seed: int
                                     FlyteSchema[CLASSES_COLUMNS]]:
     
 
-    pass
+    column_names = [k for k in DATASET_COLUMNS.keys()]
