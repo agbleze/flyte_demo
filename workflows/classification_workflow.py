@@ -44,3 +44,11 @@ def split_traintest_dataset(dataset: FlyteFile[typing.TypeVar("csv")], seed: int
     
 
     column_names = [k for k in DATASET_COLUMNS.keys()]
+    df = pd.read_csv(dataset, names=column_names)
+    x = df[column_names[:8]]
+    y = df[[column_names[-1]]]
+    
+    return train_test_split(x, y, test_size=test_split_ratio, random_state=seed)
+
+MODELSER_JOBLIB = typing.TypeVar("joblib.dat")
+
