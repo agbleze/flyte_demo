@@ -52,3 +52,14 @@ def split_traintest_dataset(dataset: FlyteFile[typing.TypeVar("csv")], seed: int
 
 MODELSER_JOBLIB = typing.TypeVar("joblib.dat")
 
+@dataclass_json
+@dataclass
+class XGBoostModelHyperparams(object):
+    max_depth: int = 3
+    learning_rate: float = 0.1
+    n_estimators: int = 100
+    objective: str = "binary:logistic"
+    booster: str = "gbtree"
+    n_jobs: int = 1
+    
+model_file = typing.NamedTuple("Model", model=FlyteFile[MODELSER_JOBLIB])
