@@ -63,3 +63,6 @@ class XGBoostModelHyperparams(object):
     n_jobs: int = 1
     
 model_file = typing.NamedTuple("Model", model=FlyteFile[MODELSER_JOBLIB])
+
+
+@task
