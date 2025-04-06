@@ -65,4 +65,10 @@ class XGBoostModelHyperparams(object):
 model_file = typing.NamedTuple("Model", model=FlyteFile[MODELSER_JOBLIB])
 
 
-@task
+@task(cache_version="1.0", cache=True, limits=Resources(mem="200Mi"))
+def fit(x: FlyteSchema[FEATURE_COLUMNS],
+        y: FlyteSchema[CLASSES_COLUMNS],
+        hyperparams: XGBoostModelHyperparams
+        ) -> model_file:
+    x_df = x.open().all()
+    y_df = y.open().all()
