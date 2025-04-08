@@ -72,3 +72,7 @@ def fit(x: FlyteSchema[FEATURE_COLUMNS],
         ) -> model_file:
     x_df = x.open().all()
     y_df = y.open().all()
+    m = XGBClassifier(
+                    n_jobs=hyperparams.n_jobs,
+                    max_depth=hyperparams.max_depth
+    )
