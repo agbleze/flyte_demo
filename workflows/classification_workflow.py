@@ -83,3 +83,21 @@ def fit(x: FlyteSchema[FEATURE_COLUMNS],
     fname = "model.joblib.dat"
     joblib.dump(m, fname)
     return (fname,)
+
+
+@task(cache_version="1.0", cache=True, limits=Resources(mem="200Mi"))
+def predict(x: FlyteSchema[FEATURE_COLUMNS],
+            model_ser: FlyteFile[MODELSER_JOBLIB],
+            ) -> FlyteSchema[CLASSES_COLUMNS]:
+    model = joblib.load(model_ser)
+    x_df = x.open().all()
+    y_pred = model.predict(x_df)
+    col = [k for k in CLASSES_COLUMNS.keys()]
+    y_pred_df = pd.DataFrame(y_pred, columns=col, dtype="int64")
+    y_pred_df.round(0)
+    return y_pred_df
+
+
+
+def score():
+    pass
