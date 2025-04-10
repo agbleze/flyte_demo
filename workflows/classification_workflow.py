@@ -98,6 +98,6 @@ def predict(x: FlyteSchema[FEATURE_COLUMNS],
     return y_pred_df
 
 
-
+@task()
 def score():
     pass
