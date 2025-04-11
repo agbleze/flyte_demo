@@ -98,6 +98,10 @@ def predict(x: FlyteSchema[FEATURE_COLUMNS],
     return y_pred_df
 
 
-@task()
-def score():
-    pass
+@task(cache_version="1.0", cache=True, limits=Resources(mem="200Mi"))
+def score(predictions: FlyteSchema[CLASSES_COLUMNS], y: FlyteSchema[CLASSES_COLUMNS]) -> float:
+    pred_df = predictions.open().all()
+    y_df = y.open().all()
+    acc = accuracy_score(y_df, pred_df)
+    print("Accuracy: %.2f%%" % (acc * 100.0))
+    return float(acc)
