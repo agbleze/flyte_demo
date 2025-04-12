@@ -105,3 +105,6 @@ def score(predictions: FlyteSchema[CLASSES_COLUMNS], y: FlyteSchema[CLASSES_COLU
     acc = accuracy_score(y_df, pred_df)
     print("Accuracy: %.2f%%" % (acc * 100.0))
     return float(acc)
+
+@task()
+
