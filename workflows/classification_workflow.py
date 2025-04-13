@@ -1,3 +1,4 @@
+#%%
 import typing
 from collections import OrderedDict
 from dataclasses import dataclass
@@ -106,5 +107,22 @@ def score(predictions: FlyteSchema[CLASSES_COLUMNS], y: FlyteSchema[CLASSES_COLU
     print("Accuracy: %.2f%%" % (acc * 100.0))
     return float(acc)
 
-@task()
+@workflow
+def diabetes_xgboost_model(dataset: FlyteFile[typing.TypeVar("csv")]="https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv",
+                           test_split_ratio = 0.33,
+                           seed: int = 7
+                           ) -> workflow_outputs:
+    x_train, x_test, y_train, y_test = split_traintest_dataset(dataset=dataset,
+                                                               seed=seed,
+                                                               test_split_ratio=test_split_ratio
+                                                               )
+    model = fit(x=x_train, y=y_train,
+                hyperparams=XGBoostModelHyperparams(max_depth=4)
+                )
+    predictions = predict(x=x_test, model_ser=model.model)
+    return model.model, score(predictions=predictions, y=y_test)
 
+if __name__ == "__main__":
+    print(f"Running {__file__} main ...")
+    print(diabetes_xgboost_model())
+# %%
