@@ -111,7 +111,7 @@ def score(predictions: FlyteSchema[CLASSES_COLUMNS], y: FlyteSchema[CLASSES_COLU
 def diabetes_xgboost_model(dataset: FlyteFile[typing.TypeVar("csv")]="https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv",
                            test_split_ratio = 0.33,
                            seed: int = 7
-                           ) -> workflow_outputs:
+                           ):
     x_train, x_test, y_train, y_test = split_traintest_dataset(dataset=dataset,
                                                                seed=seed,
                                                                test_split_ratio=test_split_ratio
