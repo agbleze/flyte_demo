@@ -70,5 +70,7 @@ def gen_houses(num_houses) -> pd.DataFrame:
 def split_data(df: pd.DataFrame, seed: int, 
                split: typing.List[float]
                ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    pass
+    seed = seed
+    val_size = split[1]
+    test_size = split[2]
 
