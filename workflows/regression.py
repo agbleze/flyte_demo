@@ -79,4 +79,11 @@ def split_data(df: pd.DataFrame, seed: int,
     y1 = df.values[:num_samples, :1]
     
     x_train, x_test, y_train, y_test = train_test_split(x1, y1, test_size=test_size, random_state=seed)
+    
+    x_train, x_val, y_train, y_val = train_test_split(
+        x_train,
+        y_train,
+        test_size=(val_size / (1 - test_size)),  # here, `test_size` computes to 0.3
+        random_state=seed,
+    )
 
