@@ -86,4 +86,9 @@ def split_data(df: pd.DataFrame, seed: int,
         test_size=(val_size / (1 - test_size)),  # here, `test_size` computes to 0.3
         random_state=seed,
     )
+    
+    # reassemble the datasets by placing `target` as first column and `features` in the subsequent columns
+    _train = np.concatenate([y_train, x_train], axis=1)
+    _val = np.concatenate([y_val, x_val], axis=1)
+    _test = np.concatenate([y_test, x_test], axis=1)
 
