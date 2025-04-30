@@ -91,4 +91,19 @@ def split_data(df: pd.DataFrame, seed: int,
     _train = np.concatenate([y_train, x_train], axis=1)
     _val = np.concatenate([y_val, x_val], axis=1)
     _test = np.concatenate([y_test, x_test], axis=1)
+    
+    return (
+        pd.DataFrame(
+            _train,
+            columns=COLUMNS,
+        ),
+        pd.DataFrame(
+            _val,
+            columns=COLUMNS,
+        ),
+        pd.DataFrame(
+            _test,
+            columns=COLUMNS,
+        ),
+    )
 
