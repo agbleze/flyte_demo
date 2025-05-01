@@ -6,6 +6,7 @@ from xgboost import XGBRegressor
 from sklearn.model_selection import train_test_split
 import joblib
 from flytekit.types.file import JoblibSerializedFile
+import typing
 
 
 
@@ -107,3 +108,11 @@ def split_data(df: pd.DataFrame, seed: int,
         ),
     )
 
+
+
+dataset = typing.NamedTuple(
+    "GenerateSplitDataOutputs",
+    train_data=pd.DataFrame,
+    val_data=pd.DataFrame,
+    test_data=pd.DataFrame,
+)
