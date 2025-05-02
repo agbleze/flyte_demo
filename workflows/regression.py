@@ -110,9 +110,8 @@ def split_data(df: pd.DataFrame, seed: int,
 
 
 
-dataset = typing.NamedTuple(
-    "GenerateSplitDataOutputs",
-    train_data=pd.DataFrame,
-    val_data=pd.DataFrame,
-    test_data=pd.DataFrame,
-)
+dataset = typing.NamedTuple("GenerateSplitDataOutputs",
+                            train_data=pd.DataFrame,
+                            val_data=pd.DataFrame,
+                            test_data=pd.DataFrame,
+                        )
