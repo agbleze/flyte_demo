@@ -115,3 +115,9 @@ dataset = typing.NamedTuple("GenerateSplitDataOutputs",
                             val_data=pd.DataFrame,
                             test_data=pd.DataFrame,
                         )
+
+
+@task(cache=True, cache_version="0.1", limits=Resources(mem="600Mi"))
+def generate_and_split_data(number_of_houses: int, seed: int) -> dataset:
+    _houses = gen_houses(number_of_houses)
+    return split_data(_houses, seed, split=SPLIT_RATIOS)
