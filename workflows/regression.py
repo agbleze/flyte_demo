@@ -121,3 +121,25 @@ dataset = typing.NamedTuple("GenerateSplitDataOutputs",
 def generate_and_split_data(number_of_houses: int, seed: int) -> dataset:
     _houses = gen_houses(number_of_houses)
     return split_data(_houses, seed, split=SPLIT_RATIOS)
+
+
+@task(cache_version="1.0", cache=True, limits=Resources(mem="600Mi"))
+def fit(loc: str, train: pd.DataFrame, val: pd.DataFrame) -> JoblibSerializedFile:
+    # fetch the features and target columns from the train dataset
+    x = train[train.columns[1:]]
+    y = train[train.columns[0]]
+
+    # fetch the features and target columns from the validation dataset
+    eval_x = val[val.columns[1:]]
+    eval_y = val[val.columns[0]]
+
+    m = XGBRegressor()
+    # fit the model to the train data
+    m.fit(x, y, eval_set=[(eval_x, eval_y)])
+
+    working_dir = flytekit.current_context().working_directory
+    fname = str(Path(working_dir) / f"model-{loc}.joblib.dat")
+    joblib.dump(m, fname)
+
+    # return the serialized model
+    return JoblibSerializedFile(path=fname)
