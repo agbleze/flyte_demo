@@ -143,3 +143,22 @@ def fit(loc: str, train: pd.DataFrame, val: pd.DataFrame) -> JoblibSerializedFil
 
     # return the serialized model
     return JoblibSerializedFile(path=fname)
+
+
+
+@task(cache_version="1.0", cache=True, limits=Resources(mem="600Mi"))
+def predict(
+    test: pd.DataFrame,
+    model_ser: JoblibSerializedFile,
+) -> typing.List[float]:
+    # load the model
+    model = joblib.load(model_ser)
+
+    # load the test data
+    x_df = test[test.columns[1:]]
+
+    # generate predictions
+    y_pred = model.predict(x_df).tolist()
+
+    # return the predictions
+    return y_pred
