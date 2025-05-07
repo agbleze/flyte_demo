@@ -162,3 +162,17 @@ def predict(
 
     # return the predictions
     return y_pred
+
+
+@workflow
+def house_price_predictor_trainer(seed: int = 7, number_of_houses: int = NUM_HOUSES_PER_LOCATION) -> typing.List[float]:
+    # generate the data and split it into train test, and validation data
+    split_data_vals = generate_and_split_data(number_of_houses=number_of_houses, seed=seed)
+
+    # fit the XGBoost model
+    model = fit(loc="NewYork_NY", train=split_data_vals.train_data, val=split_data_vals.val_data)
+
+    # generate predictions
+    predictions = predict(model_ser=model, test=split_data_vals.test_data)
+
+    return predictions
