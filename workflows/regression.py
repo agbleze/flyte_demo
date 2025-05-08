@@ -176,3 +176,8 @@ def house_price_predictor_trainer(seed: int = 7, number_of_houses: int = NUM_HOU
     predictions = predict(model_ser=model, test=split_data_vals.test_data)
 
     return predictions
+
+
+
+if __name__ == "__main__":
+    print(house_price_predictor_trainer())
