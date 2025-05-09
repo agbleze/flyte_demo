@@ -177,7 +177,5 @@ def house_price_predictor_trainer(seed: int = 7, number_of_houses: int = NUM_HOU
 
     return predictions
 
-
-
 if __name__ == "__main__":
     print(house_price_predictor_trainer())
