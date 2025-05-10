@@ -8,8 +8,6 @@ import joblib
 from flytekit.types.file import JoblibSerializedFile
 import typing
 
-
-
 NUM_HOUSES_PER_LOCATION = 1000
 COLUMNS = [
     "PRICE", "YEAR_BUILT", "SQUARE_FEET",
@@ -107,7 +105,6 @@ def split_data(df: pd.DataFrame, seed: int,
             columns=COLUMNS,
         ),
     )
-
 
 
 dataset = typing.NamedTuple("GenerateSplitDataOutputs",
